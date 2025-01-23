@@ -152,7 +152,8 @@ exports.assignRider = asyncHandler(async (req, res) => {
     await Order.findByIdAndUpdate(oid, { rider: req.body.rider })
 
     const result = await Order.find({ rider: req.body.rider })
-    io.emit("rider-orders", result)
+
+    io.emit("rider-orders")
     res.json({ message: "rider assign success" })
 })
 
