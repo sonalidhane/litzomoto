@@ -13,7 +13,7 @@ app.use(express.json()) // req.body
 app.use(cookieParser()) // req.cookies
 app.use(express.static("dist")) // req.cookies
 app.use(cors({
-    origin: true,
+    origin: "https://litzomoto.onrender.com",
     credentials: true // cookie
 }))
 
