@@ -65,6 +65,7 @@ exports.placedOrder = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: "all fields required", error })
     }
     await Order.create({ resturant, items, customer: req.user })
+    io.emit("place-order")
     res.json({ message: "order placed success" })
 })
 
