@@ -13,7 +13,7 @@ app.use(express.json()) // req.body
 app.use(cookieParser()) // req.cookies
 app.use(express.static("dist")) // req.cookies
 app.use(cors({
-    origin: "https://zomato-lite-alve.onrender.com",
+    origin: true,
     credentials: true // cookie
 }))
 
