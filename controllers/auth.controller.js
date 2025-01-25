@@ -136,11 +136,13 @@ exports.logoutResturant = asyncHandler(async (req, res) => {
 
 
 exports.registerCustomer = asyncHandler(async (req, res) => {
-    const { email,name,mobile } = req.body
-    const result = await Customer.findOne({ $or:[
-        {mobile},
-        {email},
-    ] })
+    const { email, name, mobile } = req.body
+    const result = await Customer.findOne({
+        $or: [
+            { mobile },
+            { email },
+        ]
+    })
     if (result) {
         return res.status(409).json({ message: "email or mobile already registered" })
     }
@@ -154,7 +156,7 @@ exports.loginCustomer = asyncHandler(async (req, res) => {
 
     const result = await Customer.findOne({ $or: [{ email: userName }, { mobile: userName }] })
     console.log(result);
-    
+
     if (!result) {
         return res.status(400).json({ message: "invalid credentials" })
     }
@@ -211,10 +213,10 @@ exports.logoutCustomer = asyncHandler(async (req, res) => {
 })
 
 exports.loginRider = asyncHandler(async (req, res) => {
-    const { userName,password } = req.body
+    const { userName, password } = req.body
 
     const result = await Rider.findOne({ $or: [{ email: userName }, { mobile: userName }] })
-    
+
     if (!result) {
         return res.status(400).json({ message: "invalid credentials" })
     }
@@ -223,7 +225,10 @@ exports.loginRider = asyncHandler(async (req, res) => {
     if (!isVerify) {
         return res.status(401).json({ message: "invalid credentials password" })
     }
+    if (!result.isActive) {
+        return res.status(401).json({ message: "account blocked by admin " })
 
+    }
     const token = jwt.sign({ _id: result._id }, process.env.JWT_SECRET, { expiresIn: "1d" })
 
     res.cookie("zomato-rider", token, {
@@ -240,7 +245,7 @@ exports.loginRider = asyncHandler(async (req, res) => {
             infoComplete: result.infoComplete,
         }
     })
-   
+
 })
 
 exports.logoutRider = asyncHandler(async (req, res) => {
