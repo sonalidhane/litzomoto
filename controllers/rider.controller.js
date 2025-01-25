@@ -3,7 +3,7 @@ const Order = require("../models/Order")
 
 exports.getRiderOrder = asyncHandler(async (req, res) => {
     const result = await Order
-        .find({ rider: req.user })
+        .find({ rider: req.user, status: { $ne: "delivered" } })
         .select("-rider -createdAt -updatedAt -__v")
         .populate("resturant", "name email mobile address")
         .populate("customer", "name email mobile address")
