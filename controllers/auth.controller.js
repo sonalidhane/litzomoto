@@ -11,6 +11,7 @@ const { sendSMS } = require('../utils/sms')
 const Resturant = require('../models/Resturant')
 const Customer = require('../models/Customer')
 const Rider = require('../models/Rider')
+const { io } = require("../socket/socket")
 
 
 exports.registerAdmin = asyncHandler(async (req, res) => {

@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler")
 const Order = require("../models/Order")
+const { io } = require("../socket/socket")
 
 exports.getRiderOrder = asyncHandler(async (req, res) => {
     const result = await Order

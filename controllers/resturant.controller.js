@@ -7,6 +7,7 @@ const cloud = require("../utils/cloudinary")
 const Resturant = require("../models/Resturant")
 const Menu = require("../models/Menu")
 const Order = require("../models/Order")
+const { io } = require("../socket/socket")
 
 exports.updateInfo = asyncHandler(async (req, res) => {
   resturantUpload(req, res, async (err) => {
